@@ -1,0 +1,185 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import BlogCard from '../components/BlogCard.astro';
+import NewsletterCTA from '../components/NewsletterCTA.astro';
+
+// Sample gallery photos
+const featuredPhotos = [
+  {
+    id: '1',
+    title: 'Notte a Capri',
+    src: '/images/anacapri1.jpg',
+    category: 'Paesaggi',
+    width: 4,
+    height: 3
+  },
+  {
+    id: '2',
+    title: 'Ritratto in Studio',
+    src: '/images/napoli.jpg',
+    category: 'Ritratti',
+    width: 3,
+    height: 4
+  },
+  {
+    id: '3',
+    title: 'Vita di Strada',
+    src: '/images/roma.jpg',
+    category: 'Street',
+    width: 4,
+    height: 3
+  }
+];
+
+// Sample blog posts
+const recentPosts = [
+  {
+    title: 'Come fotografare le stelle: guida completa per principianti',
+    excerpt: 'Tutto ciò che devi sapere per iniziare a fotografare il cielo notturno: dalle impostazioni della fotocamera agli accessori essenziali.',
+    image: '/images/napoli2.jpg',
+    date: '2025-04-15',
+    slug: 'fotografare-stelle-guida-principianti',
+    category: 'Tutorial'
+  },
+  {
+    title: 'Recensione Fujifilm XT-5: un anno dopo',
+    excerpt: 'La mia esperienza con la Fujifilm XT-5 dopo un anno di utilizzo intensivo in varie condizioni di scatto.',
+    image: '/images/napoli3.jpg',
+    date: '2025-03-28',
+    slug: 'recensione-fujifilm-xt5-un-anno-dopo',
+    category: 'Recensioni'
+  },
+  {
+    title: 'I 5 errori più comuni nella fotografia di paesaggio',
+    excerpt: 'Scopri gli errori che molti fotografi commettono quando scattano paesaggi e come evitarli per migliorare le tue foto.',
+    image: '/images/napoli4.jpg',
+    date: '2025-03-10',
+    slug: '5-errori-comuni-fotografia-paesaggio',
+    category: 'Consigli'
+  }
+];
+---
+
+<Layout 
+  title="vinjsh32 | Fotografo di Capri, Italia"
+  description="Portfolio fotografico di Vincenzo, fotografo di Capri specializzato in paesaggi notturni, ritratti e street photography."
+>
+  <Hero
+    title="Ciao, sono Vincenzo — ma online mi riconosci come vinjsh32 ❤️"
+    subtitle="In questo spazio ti accolgo nel mio universo fotografico, dove luce, colori e dettagli diventano storie da vivere."
+    backgroundImage="/images/milano1.jpg"
+  >
+    <div class="flex flex-wrap justify-center gap-4 mt-8">
+      <a 
+        href="/portfolio" 
+        class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-md transition-colors"
+      >
+        Esplora il Portfolio
+      </a>
+      <a 
+        href="/contatti" 
+        class="px-6 py-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-medium rounded-md transition-colors"
+      >
+        Contattami
+      </a>
+    </div>
+  </Hero>
+  
+  <section id="content" class="py-20 bg-white dark:bg-dark-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-display font-bold mb-4 text-dark-800 dark:text-white">Portfolio</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Scorri tra le gallerie e lasciati guidare dalle immagini firmate vinjsh32.
+        </p>
+      </div>
+      
+      <PhotoGallery photos={featuredPhotos} columns={3} />
+      
+      <div class="text-center mt-10">
+        <a 
+          href="/portfolio" 
+          class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-md transition-colors"
+        >
+          Vedi tutte le foto
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-20 bg-gray-100 dark:bg-dark-700">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-display font-bold mb-4 text-dark-800 dark:text-white">Blog</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Nel blog trovi articoli freschi e diretti in cui condivido trucchi sul campo, recensioni di attrezzatura e riflessioni sul mestiere del fotografo.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {recentPosts.map(post => (
+          <BlogCard 
+            title={post.title}
+            excerpt={post.excerpt}
+            image={post.image}
+            date={post.date}
+            slug={post.slug}
+            category={post.category}
+          />
+        ))}
+      </div>
+      
+      <div class="text-center mt-10">
+        <a 
+          href="/blog" 
+          class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-md transition-colors"
+        >
+          Leggi tutti gli articoli
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-20 bg-white dark:bg-dark-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-display font-bold mb-6 text-dark-800 dark:text-white">Chi Sono</h2>
+          <p class="text-gray-700 dark:text-gray-300 mb-6">
+            Classe '00, di Capri, ingegnere informatico e fotografo autodidatta, ho trasformato la curiosità per la luce in un diario visivo che oggi porto con me in ogni fuga tra città e natura.
+          </p>
+          <p class="text-gray-700 dark:text-gray-300 mb-6">
+            Dalla Fujifilm XT-5 alle lunghe notti sotto il cielo, ogni progetto nasce dal desiderio di congelare la meraviglia e restituirla a chi osserva, firmando sempre con la sigla vinjsh32 perché dietro l'obiettivo c'è la stessa persona che scrive queste righe: un amante dell'avventura, della tecnologia e della condivisione sincera.
+          </p>
+          <a 
+            href="/chi-sono" 
+            class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
+          >
+            Scopri di più su di me
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+        <div class="relative">
+          <img 
+            src="https://images.pexels.com/photos/3400050/pexels-photo-3400050.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
+            alt="Vincenzo (vinjsh32) in azione" 
+            class="rounded-lg shadow-xl"
+          />
+          <div class="absolute -bottom-6 -left-6 w-48 h-48 bg-primary-600 rounded-lg -z-10"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <NewsletterCTA />
+</Layout>

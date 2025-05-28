@@ -1,0 +1,105 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+
+// Sample gallery photos - in a real site, this would come from a CMS or database
+const photos = [
+  {
+    id: '1',
+    title: 'Notte a Capri',
+    src: '/images/anacapri1.jpg',
+    category: 'Paesaggi',
+    width: 4,
+    height: 3
+  },
+  {
+    id: '2',
+    title: 'Ritratto in Studio',
+    src: '/images/napoli.jpg',
+    category: 'Ritratti',
+    width: 3,
+    height: 4
+  },
+  {
+    id: '3',
+    title: 'Vita di Strada',
+    src: '/images/roma.jpg',
+    category: 'Street',
+    width: 4,
+    height: 3
+  },
+  {
+    id: '4',
+    title: 'Alba sul Mare',
+    src: '/images/napoli2.jpg',
+    category: 'Paesaggi',
+    width: 4,
+    height: 3
+  },
+  {
+    id: '5',
+    title: 'Profilo Artistico',
+    src: '/images/napoli3.jpg',
+    category: 'Ritratti',
+    width: 3,
+    height: 4
+  },
+  {
+    id: '6',
+    title: 'Momenti Quotidiani',
+    src: '/images/napoli4.jpg',
+    category: 'Street',
+    width: 4,
+    height: 3
+  },
+  {
+    id: '7',
+    title: 'Tramonto tra le Rocce',
+    src: '/images/roma1.jpg',
+    category: 'Paesaggi',
+    width: 16,
+    height: 9
+  },
+  {
+    id: '8',
+    title: 'Sguardo Intenso',
+    src: '/images/roma2.jpg',
+    category: 'Ritratti',
+    width: 3,
+    height: 4
+  },
+  {
+    id: '9',
+    title: 'Attimi Urbani',
+    src: '/images/milano1.jpg',
+    category: 'Street',
+    width: 4,
+    height: 3
+  }
+];
+---
+
+<Layout
+  title="Portfolio | vinjsh32 Photography"
+  description="Esplora la galleria fotografica di vinjsh32: paesaggi, ritratti e street photography catturati con passione e attenzione ai dettagli."
+>
+  <Hero
+    title="Portfolio"
+    subtitle="Scorri tra le gallerie e lasciati guidare dalle immagini firmate vinjsh32: paesaggi notturni che svelano stelle impalpabili, ritratti in cui l'emozione si posa delicata sul volto, street-photography che cattura l'istante irripetibile."
+    backgroundImage="/images/anacapri1.jpg"
+  />
+  
+  <section id="content" class="py-20 bg-white dark:bg-dark-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <p class="text-gray-700 dark:text-gray-300">
+          Ogni foto è accompagnata da dati di scatto e aneddoti tecnici pensati per ispirare appassionati e professionisti. 
+          Per richiedere stampe fine-art numerate o licenze commerciali, contattami direttamente.
+        </p>
+      </div>
+      
+      <PhotoGallery photos={photos} columns={3} />
+    </div>
+  </section>
+</Layout>

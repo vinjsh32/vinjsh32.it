@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  overlay?: boolean;
+}
+
+const { 
+  title, 
+  subtitle, 
+  backgroundImage = "https://images.pexels.com/photos/1509534/pexels-photo-1509534.jpeg?auto=compress&cs=tinysrgb&w=1920", 
+  overlay = true 
+} = Astro.props;
+---
+
+<section 
+  class="relative h-screen flex items-center justify-center overflow-hidden"
+  style={`background-image: url(${backgroundImage}); background-size: cover; background-position: center;`}
+>
+  {overlay && <div class="absolute inset-0 bg-dark-900/60"></div>}
+  
+  <div class="container relative z-10 text-center px-4 sm:px-6 slide-up">
+    <h1 class="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6">
+      {title}
+    </h1>
+    {subtitle && 
+      <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+        {subtitle}
+      </p>
+    }
+    <slot />
+  </div>
+  
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white animate-bounce">
+    <a href="#content" aria-label="Scorri in basso">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </a>
+  </div>
+</section>

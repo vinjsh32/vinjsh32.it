@@ -1,0 +1,119 @@
+---
+interface Photo {
+  id: string;
+  title: string;
+  src: string;
+  category: string;
+  width: number;
+  height: number;
+}
+
+interface Props {
+  photos: Photo[];
+  columns?: number;
+}
+
+const { photos, columns = 3 } = Astro.props;
+
+// Group photos by categories
+const categories = [...new Set(photos.map(photo => photo.category))];
+---
+
+<div class="photo-gallery">
+  <!-- Category Filters -->
+  <div class="flex flex-wrap justify-center gap-2 mb-8">
+    <button 
+      class="category-btn active px-4 py-2 text-sm rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors" 
+      data-category="all"
+    >
+      Tutti
+    </button>
+    
+    {categories.map(category => (
+      <button 
+        class="category-btn px-4 py-2 text-sm rounded-full bg-dark-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white transition-colors" 
+        data-category={category}
+      >
+        {category}
+      </button>
+    ))}
+  </div>
+  
+  <!-- Photo Grid -->
+  <div class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${columns} gap-4`}>
+    {photos.map(photo => (
+      <div 
+        class="photo-item overflow-hidden rounded-lg fade-in" 
+        data-category={photo.category}
+        style={{
+          aspectRatio: `${photo.width}/${photo.height}`
+        }}
+      >
+        <a href="#" class="photo-link block relative group">
+          <img 
+            src={photo.src} 
+            alt={photo.title} 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-dark-900/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <div>
+              <h3 class="text-white text-lg font-medium">{photo.title}</h3>
+              <span class="text-primary-400 text-sm">{photo.category}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  // Category filtering
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  const photoItems = document.querySelectorAll('.photo-item');
+  
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      categoryButtons.forEach(btn => btn.classList.remove('active', 'bg-primary-600', 'text-white'));
+      categoryButtons.forEach(btn => btn.classList.add('bg-dark-100', 'dark:bg-dark-700'));
+      
+      // Add active class to clicked button
+      button.classList.add('active', 'bg-primary-600', 'text-white');
+      button.classList.remove('bg-dark-100', 'dark:bg-dark-700');
+      
+      const category = button.getAttribute('data-category');
+      
+      // Show/hide photos based on category
+      photoItems.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+  
+  // Photo lightbox (simplified - can be expanded with a proper lightbox library)
+  const photoLinks = document.querySelectorAll('.photo-link');
+  
+  photoLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Here you would typically open a lightbox
+      // For simplicity, this is just a placeholder
+    });
+  });
+</script>
+
+<style>
+  .category-btn.active {
+    @apply bg-primary-600 text-white;
+  }
+  
+  .photo-item {
+    transition: opacity 0.3s ease;
+  }
+</style>

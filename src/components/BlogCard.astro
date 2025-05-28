@@ -1,0 +1,50 @@
+---
+interface Props {
+  title: string;
+  excerpt: string;
+  image: string;
+  date: string;
+  slug: string;
+  category: string;
+}
+
+const { title, excerpt, image, date, slug, category } = Astro.props;
+
+// Format date
+const formattedDate = new Date(date).toLocaleDateString('it-IT', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<article class="bg-white dark:bg-dark-700 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
+  <a href={`/blog/${slug}`} class="block relative group">
+    <div class="relative h-48 overflow-hidden">
+      <img 
+        src={image} 
+        alt={title} 
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div class="absolute top-4 right-4 bg-primary-600 text-white text-xs font-medium px-2 py-1 rounded">
+        {category}
+      </div>
+    </div>
+    
+    <div class="p-6">
+      <time class="text-xs text-gray-500 dark:text-gray-400">{formattedDate}</time>
+      <h3 class="text-xl font-bold mt-2 mb-3 text-dark-800 dark:text-white group-hover:text-primary-600 transition-colors">
+        {title}
+      </h3>
+      <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
+        {excerpt}
+      </p>
+      <div class="mt-4 inline-flex items-center text-primary-600 text-sm font-medium">
+        Leggi di più
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </div>
+    </div>
+  </a>
+</article>
