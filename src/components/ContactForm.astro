@@ -1,7 +1,11 @@
+---
+// Import necessary for client-side scripts
+---
+
 <div class="bg-white dark:bg-dark-700 rounded-lg shadow-md p-6 lg:p-8">
   <h2 class="text-2xl font-bold mb-6 text-dark-800 dark:text-white">Contattami</h2>
   
-  <form class="space-y-6">
+  <form id="contactForm" class="space-y-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
         <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome</label>
@@ -50,9 +54,66 @@
     
     <button 
       type="submit" 
+      id="submitButton"
       class="w-full bg-primary-600 hover:bg-primary-700 text-white font-medium py-3 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
     >
       Invia Messaggio
     </button>
+    
+    <div id="formStatus" class="mt-4 text-center hidden">
+      <p id="successMessage" class="text-green-600 dark:text-green-400 hidden">Grazie per il tuo messaggio! Ti risponderò al più presto.</p>
+      <p id="errorMessage" class="text-red-600 dark:text-red-400 hidden">Si è verificato un errore. Per favore riprova più tardi o contattami direttamente via email.</p>
+    </div>
   </form>
 </div>
+
+<script>
+  // Client-side JavaScript for form handling
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contactForm');
+    const submitButton = document.getElementById('submitButton');
+    const formStatus = document.getElementById('formStatus');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Disable button and show loading state
+        submitButton.disabled = true;
+        submitButton.innerText = 'Invio in corso...';
+        
+        // Get form data
+        const formData = new FormData(form);
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+          formDataObj[key] = value;
+        });
+        
+        try {
+          // Simulate form submission (in a real scenario, you would send this to a server)
+          await new Promise(resolve => setTimeout(resolve, 1500));
+          
+          // Show success message
+          formStatus.classList.remove('hidden');
+          successMessage.classList.remove('hidden');
+          errorMessage.classList.add('hidden');
+          
+          // Reset form
+          form.reset();
+        } catch (error) {
+          // Show error message
+          formStatus.classList.remove('hidden');
+          errorMessage.classList.remove('hidden');
+          successMessage.classList.add('hidden');
+          console.error('Form submission error:', error);
+        } finally {
+          // Re-enable button
+          submitButton.disabled = false;
+          submitButton.innerText = 'Invia Messaggio';
+        }
+      });
+    }
+  });
+</script>
