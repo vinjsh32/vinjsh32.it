@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import BlogCard from '../components/BlogCard.astro';
+import NewsletterCTA from '../components/NewsletterCTA.astro';
+
+// Sample blog posts - in a real site, this would come from a CMS or database
+const blogPosts = [
+  {
+    title: 'Come fotografare le stelle: guida completa per principianti',
+    excerpt: 'Tutto ciò che devi sapere per iniziare a fotografare il cielo notturno: dalle impostazioni della fotocamera agli accessori essenziali.',
+    image: 'https://i.postimg.cc/CKS4Z7LX/napoli2.jpg',
+    date: '2025-04-15',
+    slug: 'fotografare-stelle-guida-principianti',
+    category: 'Tutorial'
+  },
+  {
+    title: 'Recensione Fujifilm XT-5: un anno dopo',
+    excerpt: 'La mia esperienza con la Fujifilm XT-5 dopo un anno di utilizzo intensivo in varie condizioni di scatto.',
+    image: 'https://i.postimg.cc/KYPsw4RS/napoli3.jpg',
+    date: '2025-03-28',
+    slug: 'recensione-fujifilm-xt5-un-anno-dopo',
+    category: 'Recensioni'
+  },
+  {
+    title: 'I 5 errori più comuni nella fotografia di paesaggio',
+    excerpt: 'Scopri gli errori che molti fotografi commettono quando scattano paesaggi e come evitarli per migliorare le tue foto.',
+    image: 'https://i.postimg.cc/65PSGDDS/napoli4.jpg',
+    date: '2025-03-10',
+    slug: '5-errori-comuni-fotografia-paesaggio',
+    category: 'Consigli'
+  },
+  {
+    title: 'Lightroom vs Capture One: quale scegliere nel 2025?',
+    excerpt: 'Un confronto approfondito tra i due software di editing fotografico più popolari, con pro e contro di ciascuno.',
+    image: 'https://i.postimg.cc/Pf20dLKd/roma.jpg',
+    date: '2025-02-20',
+    slug: 'lightroom-vs-capture-one-confronto',
+    category: 'Software'
+  },
+  {
+    title: 'Le mie 10 location preferite per fotografare a Capri',
+    excerpt: 'Una guida alle migliori location per fotografi sull\'isola di Capri, con consigli su orari e condizioni di luce ideali.',
+    image: 'https://i.postimg.cc/rm930zkC/roma1.jpg',
+    date: '2025-01-18',
+    slug: '10-location-fotografare-capri',
+    category: 'Guide'
+  },
+  {
+    title: 'Come ho scattato questa foto: Via Lattea sulla Grotta Azzurra',
+    excerpt: 'Backstage e processo creativo dietro uno dei miei scatti più apprezzati: la Via Lattea sopra la Grotta Azzurra di Capri.',
+    image: 'https://i.postimg.cc/B6W4cjkr/roma2.jpg',
+    date: '2024-12-05',
+    slug: 'backstage-via-lattea-grotta-azzurra',
+    category: 'Backstage'
+  },
+];
+---
+
+<Layout
+  title="Blog | vinjsh32 Photography"
+  description="Articoli, tutorial, recensioni e consigli sulla fotografia dal blog di vinjsh32."
+>
+  <Hero
+    title="Blog"
+    subtitle="Articoli freschi e diretti in cui condivido trucchi sul campo, recensioni di attrezzatura, flussi di lavoro per l'editing e riflessioni sul mestiere del fotografo."
+    backgroundImage="https://i.postimg.cc/66kdxLSk/milano1.jpg"
+  />
+  
+  <section id="content" class="py-20 bg-white dark:bg-dark-800">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <p class="text-gray-700 dark:text-gray-300">
+          Commenta, lascia domande, racconta la tua esperienza: la sezione è pensata come un caffè virtuale 
+          dove la community cresce scambiando idee, test, successi ed errori.
+        </p>
+      </div>
+      
+      <!-- Category Filter -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12">
+        <button 
+          class="category-btn active px-4 py-2 text-sm rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors" 
+          data-category="all"
+        >
+          Tutti gli Articoli
+        </button>
+        <button 
+          class="category-btn px-4 py-2 text-sm rounded-full bg-dark-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white transition-colors" 
+          data-category="Tutorial"
+        >
+          Tutorial
+        </button>
+        <button 
+          class="category-btn px-4 py-2 text-sm rounded-full bg-dark-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white transition-colors" 
+          data-category="Recensioni"
+        >
+          Recensioni
+        </button>
+        <button 
+          class="category-btn px-4 py-2 text-sm rounded-full bg-dark-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white transition-colors" 
+          data-category="Consigli"
+        >
+          Consigli
+        </button>
+        <button 
+          class="category-btn px-4 py-2 text-sm rounded-full bg-dark-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white transition-colors" 
+          data-category="Guide"
+        >
+          Guide
+        </button>
+        <button 
+          class="category-btn px-4 py-2 text-sm rounded-full bg-dark-100 dark:bg-dark-700 hover:bg-primary-600 hover:text-white transition-colors" 
+          data-category="Backstage"
+        >
+          Backstage
+        </button>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 blog-grid">
+        {blogPosts.map(post => (
+          <div class="blog-item" data-category={post.category}>
+            <BlogCard 
+              title={post.title}
+              excerpt={post.excerpt}
+              image={post.image}
+              date={post.date}
+              slug={post.slug}
+              category={post.category}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <NewsletterCTA darkBg={true} />
+</Layout>
+
+<script>
+  // Category filtering for blog posts
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  const blogItems = document.querySelectorAll('.blog-item');
+  
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      categoryButtons.forEach(btn => btn.classList.remove('active', 'bg-primary-600', 'text-white'));
+      categoryButtons.forEach(btn => btn.classList.add('bg-dark-100', 'dark:bg-dark-700'));
+      
+      // Add active class to clicked button
+      button.classList.add('active', 'bg-primary-600', 'text-white');
+      button.classList.remove('bg-dark-100', 'dark:bg-dark-700');
+      
+      const category = button.getAttribute('data-category');
+      
+      // Show/hide blog posts based on category
+      blogItems.forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .category-btn.active {
+    @apply bg-primary-600 text-white;
+  }
+</style>
